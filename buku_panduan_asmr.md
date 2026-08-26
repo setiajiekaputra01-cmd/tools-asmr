@@ -5,10 +5,10 @@
 ---
 
 ## 📌 DAFTAR ISI
-1. [BAB 1: Mengenal 2 Aplikasi Utama yang Wajib Ada](#bab-1-mengenal-2-aplikasi-utama-yang-wajib-ada)
-2. [BAB 2: Cara Menginstall Aplikasi (Termux & ZArchiver)](#bab-2-cara-menginstall-aplikasi-termux--zarchiver)
+1. [BAB 1: Mengenal Aplikasi Yang Dibutuhkan](#bab-1-mengenal-aplikasi-yang-dibutuhkan)
+2. [BAB 2: Cara Menginstall Aplikasi Termux](#bab-2-cara-menginstall-aplikasi-termux)
 3. [BAB 3: Cara Pemasangan Tools Pertama Kali di Termux](#bab-3-cara-pemasangan-tools-pertama-kali-di-termux)
-4. [BAB 4: Cara Memindahkan File Bahan Pakai ZArchiver](#bab-4-cara-memindahkan-file-bahan-pakai-zarchiver)
+4. [BAB 4: Cara Memindahkan File Pakai File Manager Bawaan HP](#bab-4-cara-memindahkan-file-pakai-file-manager-bawaan-hp)
 5. [BAB 5: Penjelasan Fungsi Semua Menu (Menu 1 sampai 7)](#bab-5-penjelasan-fungsi-semua-menu-menu-1-sampai-7)
 6. [BAB 6: Urutan Langkah Kerja dari Awal Sampai Video Jadi (SOP)](#bab-6-urutan-langkah-kerja-dari-awal-sampai-video-jadi-sop)
 7. [BAB 7: Khusus Pembuat (Mas Arif) - Cara Merilis Pembaruan](#bab-7-khusus-pembuat-mas-arif---cara-merilis-pembaruan)
@@ -16,23 +16,22 @@
 
 ---
 
-## 🧩 BAB 1: MENGENAL 2 APLIKASI UTAMA YANG WAJIB ADA
+## 🧩 BAB 1: MENGENAL APLIKASI YANG DIBUTUHKAN
 
-Untuk membuat video ASMR durasi panjang (1 - 10 jam) di HP Android, Anda hanya membutuhkan **2 Aplikasi**:
+Untuk membuat video ASMR durasi panjang (1 - 10 jam) di HP Android, Anda hanya membutuhkan **2 Hal Utama**:
 
 1. **Termux (Mesin Pemproses Video & Audio)**
    * *Fungsi:* Tempat kita menjalankan perintah otomatis untuk menggabungkan, mengompres, dan merakit video/audio.
-   * *Analogi:* Ini seperti mesin kompor dapur yang memasak bahan-bahan Anda.
+   * *Analogi:* Ini seperti mesin kompor dapur tempat memasak bahan-bahan Anda.
 
-2. **ZArchiver (Pengelola File HP)**
-   * *Fungsi:* Tempat kita melihat, memindahkan, dan mengambil file video atau audio di dalam HP.
-   * *Analogi:* Ini seperti rak piring atau lemari kulkas tempat menyimpan bahan-bahan Anda.
+2. **Aplikasi File / File Manager Bawaan HP Anda**
+   * *Fungsi:* Tempat biasa Anda melihat foto, lagu, atau video di HP (Misal: aplikasi *File Manager*, *Pengelola File*, *My Files*, atau *File* bawaan Samsung/Xiaomi/Oppo/Vivo/Realme).
+   * *Analogi:* Ini seperti lemari kulkas tempat menyimpan bahan-bahan Anda.
 
 ---
 
-## 📥 BAB 2: CARA MENGINSTALL APLIKASI (TERMUX & ZARCHIVER)
+## 📥 BAB 2: CARA MENGINSTALL APLIKASI TERMUX
 
-### **1. Cara Install Termux (Wajib dari F-Droid)**
 > ⚠️ **Penting:** Jangan menginstall Termux dari Google Play Store karena versi Play Store sudah mati dan pasti error.
 
 * **Langkah 1:** Buka aplikasi Google Chrome di HP Anda.
@@ -42,16 +41,11 @@ Untuk membuat video ASMR durasi panjang (1 - 10 jam) di HP Android, Anda hanya m
 * **Langkah 4:** Setelah file ter-download, buka file tersebut dan klik **Install**.
   *(Jika HP memunculkan peringatan "Izinkan dari sumber ini", aktifkan tombol Izinkan).*
 
-### **2. Cara Install ZArchiver**
-* **Langkah 1:** Buka aplikasi **Google Play Store** di HP Anda.
-* **Langkah 2:** Ketik di kolom pencarian: **ZArchiver** (dengan ikon folder warna hijau).
-* **Langkah 3:** Klik **Install**.
-
 ---
 
 ## 🚀 BAB 3: CARA PEMASANGAN TOOLS PERTAMA KALI DI TERMUX
 
-Setelah Termux dan ZArchiver ter-install di HP Anda, ikuti langkah pemasangan otomatis ini:
+Setelah Termux ter-install di HP Anda, ikuti langkah pemasangan otomatis ini:
 
 ### **Langkah 1: Buka Termux & Jalankan Perintah Persiapan**
 1. Buka aplikasi **Termux**.
@@ -76,13 +70,13 @@ Tekan **Enter**.
 
 ---
 
-## 📂 BAB 4: CARA MEMINDAHKAN FILE BAHAN PAKAI ZARCHIVER
+## 📂 BAB 4: CARA MEMINDAHKAN FILE PAKAI FILE MANAGER BAWAAN HP
 
 Tools ini secara otomatis membuatkan folder penyimpanan di memori internal HP Anda. 
 
-### **Cara Melihat Folder Pakai Aplikasi ZArchiver:**
-1. Buka aplikasi **ZArchiver**.
-2. Masuk ke **Memori Perangkat (Internal Storage)**.
+### **Cara Melihat Folder Pakai File Manager Bawaan HP:**
+1. Buka aplikasi **File Manager / Pengelola File** bawaan HP Anda.
+2. Masuk ke **Penyimpanan Internal (Internal Storage)**.
 3. Cari folder bernama **`PROJECT ASMR`**.
 
 Di dalam folder `PROJECT ASMR`, terdapat sub-folder dengan fungsi masing-masing:
@@ -155,8 +149,8 @@ Setiap kali Anda mengetik perintah **`asmr`** di Termux, akan muncul 7 pilihan m
 Berikut adalah urutan langkah demi langkah yang harus dilakukan setiap kali ingin membuat konten:
 
 ```text
-[LANGKAH 1: SIAPKAN BAHAN PAKAI ZARCHIVER]
-   │  • Buka ZArchiver
+[LANGKAH 1: SIAPKAN BAHAN PAKAI FILE MANAGER BAWAAN HP]
+   │  • Buka aplikasi File Manager / Pengelola File HP
    │  • Masukkan Audio 15 Menit ➔ folder "PROJECT ASMR/AUDIO"
    │  • Masukkan Video Mentah  ➔ folder "PROJECT ASMR/SEBELUM LOOP"
    ▼
@@ -175,8 +169,8 @@ Berikut adalah urutan langkah demi langkah yang harus dilakukan setiap kali ingi
    │  • Biarkan Termux bekerja (Layar HP boleh dikunci / redup)
    │  • Tunggu sampai muncul tulisan hijau: "SUKSES! Video ASMR berhasil dicetak!"
    ▼
-[LANGKAH 5: AMBIL VIDEO DI ZARCHIVER]
-   │  • Buka ZArchiver ➔ folder "PROJECT ASMR/HASIL HUJAN" (atau HASIL API)
+[LANGKAH 5: AMBIL VIDEO DI FILE MANAGER HP]
+   │  • Buka File Manager HP ➔ folder "PROJECT ASMR/HASIL HUJAN" (atau HASIL API)
    └─ • Video durasi panjang siap Anda upload ke YouTube / TikTok / Reels!
 ```
 
@@ -192,12 +186,6 @@ Jika Mas Arif telah selesai mengedit atau menambah fitur baru di skrip HP milik 
 asmr-push
 ```
 
-### **Apa Yang Terjadi Setelah Mengetik `asmr-push`?**
-1. Skrip akan menanyakan nomor versi baru (misal `v1.2.0`).
-2. Skrip menanyakan catatan pembaruan.
-3. Skrip otomatis mempublikasikan pembaruan ke GitHub.
-4. **Seluruh pengguna lain di mana saja akan melihat notifikasi lonceng update `🔔 (Versi v1.2.0 Tersedia!)` saat mereka membuka aplikasi!**
-
 ---
 
 ## 🛠️ BAB 8: SOLUSI MASALAH & TANYA JAWAB (TROUBLESHOOTING)
@@ -211,8 +199,5 @@ asmr-push
 ### **Q3: Bagaimana Jika Saya Salah Pilih Menu di Tengah Jalan?**
 **Jawab:** Di setiap tahap pertanyaan, Anda selalu bisa memilih angka **`[2]`** (Kembali ke Menu Utama) atau mengetik angka **`[0]`** untuk membatalkan dan kembali ke tampilan awal.
 
-### **Q4: Bagaimana Jika Muncul Pesan `Permission denied`?**
-**Jawab:** Buka Termux, lalu ketik perintah: `termux-setup-storage` dan pilih **Izinkan / Allow** pada layar HP.
-
 ---
-*Buku Panduan ini dibuat khusus untuk mempermudah alur kerja pembuatan konten ASMR Hujan & Api. Selamat berkarya!* 🌧️🔥
+*Buku Panduan ini telah disimpan dan diunggah ke GitHub repositori Anda!* 🌧️🔥
