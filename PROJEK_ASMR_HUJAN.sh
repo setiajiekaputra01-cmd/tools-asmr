@@ -1,8 +1,12 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # ==============================================================================
-#                 PROJEK ASMR CONTROL DASHBOARD
+#                 PROJEK ASMR CONTROL DASHBOARD (v1.1.0)
 #                  Tools Dibuat Oleh: Mas Arif
 # ==============================================================================
+
+# Versi & Repositori GitHub
+CURRENT_VERSION="v1.1.0"
+GITHUB_REPO_RAW="https://raw.githubusercontent.com/setiajiekaputra01-cmd/tools-asmr/main"
 
 # Palette Warna Modern untuk Termux Mobile
 C_BORDER="\033[38;5;39m"   # Cyan / Deep Sky Blue
@@ -89,6 +93,72 @@ setup_folders_interactive() {
     read -p " Tekan [Enter] untuk kembali ke menu utama..."
 }
 
+# Fungsi: Auto Update (Menu 6)
+run_auto_update() {
+    show_header
+    echo -e ""
+    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
+    echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}🔄 CEK & PERBARUI TOOLS (AUTO UPDATE)${NC}                ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
+    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Versi Saat Ini   :${NC} ${C_TITLE}$CURRENT_VERSION${NC}                        ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Repositori GitHub:${NC} ${C_BLUE}setiajiekaputra01-cmd/tools-asmr${NC}   ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    echo ""
+    echo -e " ${C_TITLE}[*] Memeriksa versi terbaru di GitHub...${NC}"
+
+    REMOTE_VERSION=$(curl -sSL "$GITHUB_REPO_RAW/VERSION" 2>/dev/null | tr -d '\r\n ')
+
+    if [ -z "$REMOTE_VERSION" ]; then
+        echo -e " ${C_RED}[!] Gagal terhubung ke GitHub. Cek koneksi internet HP Anda!${NC}\n"
+        read -p " Tekan [Enter] untuk kembali..."
+        return
+    fi
+
+    echo -e " ${C_MUTED}• Versi di Server  :${NC} ${C_GREEN}$REMOTE_VERSION${NC}\n"
+
+    if [ "$CURRENT_VERSION" = "$REMOTE_VERSION" ]; then
+        echo -e " ${C_GREEN}[✓] Tools Anda sudah menggunakan versi TERBARU ($CURRENT_VERSION)!${NC}\n"
+        echo -e " 📌 Apakah Anda tetap ingin mengunduh ulang/memperbarui file skrip?"
+        echo -e "  ${C_NUM}[1]${NC} Ya, Unduh Ulang File Skrip"
+        echo -e "  ${C_NUM}[2]${NC} ${C_RED}Kembali ke Menu Utama${NC}"
+        echo ""
+        read -p " ❯ Masukkan Pilihan [1-2] (Default: 2): " up_choice
+        up_choice="${up_choice//[$'\t\r ']/}"
+        if [ "$up_choice" != "1" ]; then
+            return
+        fi
+    else
+        echo -e " ${C_TITLE}🔔 TERSEDIA PEMBARUAN BARU! ($CURRENT_VERSION ➔ $REMOTE_VERSION)${NC}\n"
+        echo -e " 📌 Lanjutkan proses perbarui tools?"
+        echo -e "  ${C_NUM}[1]${NC} Lanjutkan Update Sekarang"
+        echo -e "  ${C_NUM}[2]${NC} ${C_RED}Kembali ke Menu Utama${NC}"
+        echo ""
+        read -p " ❯ Masukkan Pilihan [1-2] (Default: 1): " up_choice
+        up_choice="${up_choice//[$'\t\r ']/}"
+        if [ "$up_choice" = "2" ]; then
+            return
+        fi
+    fi
+
+    echo -e "\n ${C_TITLE}[*] Mengunduh berkas skrip terbaru dari GitHub...${NC}"
+    
+    curl -sSL "$GITHUB_REPO_RAW/PROJEK_ASMR_HUJAN.sh" -o "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh"
+    curl -sSL "$GITHUB_REPO_RAW/asmr_dual_video_loop.sh" -o "$DIR_SEKARANG/asmr_dual_video_loop.sh"
+    curl -sSL "$GITHUB_REPO_RAW/rakit_audio.sh" -o "$DIR_SEKARANG/rakit_audio.sh"
+    curl -sSL "$GITHUB_REPO_RAW/kompres_massal.sh" -o "$DIR_SEKARANG/kompres_massal.sh"
+    curl -sSL "$GITHUB_REPO_RAW/VERSION" -o "$DIR_SEKARANG/VERSION"
+
+    chmod +x "$DIR_SEKARANG"/*.sh 2>/dev/null
+    cp -f "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh" "$PREFIX/bin/asmr" 2>/dev/null
+    chmod +x "$PREFIX/bin/asmr" 2>/dev/null
+
+    echo -e "\n${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
+    echo -e "${C_BORDER}│${NC} ${BOLD}${C_GREEN}  🎉 PEMBARUAN BERHASIL! TOOLS TELAH DIPERBARUI!      ${NC} ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}\n"
+    read -p " Tekan [Enter] untuk memuat ulang tools..."
+    exec "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh"
+}
+
 # Fungsi: Header Dashboard Utama
 show_header() {
     clear
@@ -101,7 +171,7 @@ show_header() {
     echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝        ${NC} ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
     echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}               🌧️ TOOLS LOOPING VIDEO 🌧️               ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}              👑 Dibuat Oleh: Mas Arif 👑              ${NC} ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}          👑 Dibuat Oleh: Mas Arif ($CURRENT_VERSION) 👑         ${NC} ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
     
     # Status Storage
@@ -122,6 +192,7 @@ show_header() {
     echo -e "${C_BORDER}│${NC} ${C_MUTED}Status Sistem:${NC}                                       ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}  • Akses SDCard  : $ST_STORAGE ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}  • FFMPEG Engine : $ST_FFMPEG ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  • Versi Tools   : ${C_TITLE}$CURRENT_VERSION${NC} ${C_GREEN}(Aktif)${NC}                 ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
 }
 
@@ -317,10 +388,13 @@ while true; do
     echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[5]${NC} ${BOLD}${C_GREEN}Buat & Siapkan Semua Folder Projek Otomatis${NC}     ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Otomatis siapkan semua folder di memori HP${NC}     ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[6]${NC} ${BOLD}${C_RED}Keluar Program${NC}                                 ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[6]${NC} ${BOLD}${C_AUTHOR}Cek & Perbarui Tools (Auto Update)${NC}              ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Perbarui ke fitur & perbaikan bug terbaru${NC}     ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[7]${NC} ${BOLD}${C_RED}Keluar Program${NC}                                 ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
     echo ""
-    echo -ne " ${BOLD}${C_TITLE}❯ Masukkan Pilihan Menu [1-6]:${NC} "
+    echo -ne " ${BOLD}${C_TITLE}❯ Masukkan Pilihan Menu [1-7]:${NC} "
     read main_choice
     main_choice="${main_choice//[$'\t\r ']/}"
     
@@ -341,6 +415,9 @@ while true; do
             setup_folders_interactive
             ;;
         6)
+            run_auto_update
+            ;;
+        7)
             clear
             echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
             echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}       Terima kasih telah memakai Tools Mas Arif!      ${NC} ${C_BORDER}│${NC}"
@@ -349,7 +426,7 @@ while true; do
             exit 0
             ;;
         *)
-            echo -e "\n ${C_RED}[!] Pilihan tidak valid! Masukkan angka 1 sampai 6.${NC}"
+            echo -e "\n ${C_RED}[!] Pilihan tidak valid! Masukkan angka 1 sampai 7.${NC}"
             sleep 1.5
             ;;
     esac
