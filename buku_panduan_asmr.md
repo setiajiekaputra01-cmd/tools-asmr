@@ -1,203 +1,212 @@
-# 📘 BUKU PANDUAN LENGKAP DARAB BENER-BENER NOL (0)
+# 📘 BUKU PANDUAN MASTER ULTRA-DETAIL (STEP-BY-STEP)
 ## **TOOLS LOOPING VIDEO ASMR (Dibuat Oleh: Mas Arif)**
-*Panduan Paling Detail, Mudah Dipahami, dan Dijamin Bisa untuk Orang Awam / Gaptek Sekalipun*
+*Panduan 100% Detail Pengetikan & Tampilan Layar dari Menu 1 sampai Menu 7*
 
 ---
 
 ## 📌 DAFTAR ISI
-1. [BAB 1: Mengenal Aplikasi Yang Dibutuhkan](#bab-1-mengenal-aplikasi-yang-dibutuhkan)
-2. [BAB 2: Cara Menginstall Aplikasi Termux](#bab-2-cara-menginstall-aplikasi-termux)
-3. [BAB 3: Cara Pemasangan Tools Pertama Kali di Termux](#bab-3-cara-pemasangan-tools-pertama-kali-di-termux)
-4. [BAB 4: Cara Memindahkan File Pakai File Manager Bawaan HP](#bab-4-cara-memindahkan-file-pakai-file-manager-bawaan-hp)
-5. [BAB 5: Penjelasan Fungsi Semua Menu (Menu 1 sampai 7)](#bab-5-penjelasan-fungsi-semua-menu-menu-1-sampai-7)
-6. [BAB 6: Urutan Langkah Kerja dari Awal Sampai Video Jadi (SOP)](#bab-6-urutan-langkah-kerja-dari-awal-sampai-video-jadi-sop)
-7. [BAB 7: Khusus Pembuat (Mas Arif) - Cara Merilis Pembaruan](#bab-7-khusus-pembuat-mas-arif---cara-merilis-pembaruan)
-8. [BAB 8: Solusi Masalah & Tanya Jawab (Troubleshooting)](#bab-8-solusi-masalah--tanya-jawab-troubleshooting)
+1. [Langkah Persiapan Bahan di File Manager HP](#langkah-persiapan-bahan-di-file-manager-hp)
+2. [MENU 1: Merakit Audio Seamless Durasi Panjang (Lengkap)](#menu-1-merakit-audio-seamless-durasi-panjang-lengkap)
+3. [MENU 2: Mengompres Video Massal (Lengkap)](#menu-2-mengompres-video-massal-lengkap)
+4. [MENU 3: Merakit Video & Audio ASMR Hujan (Lengkap)](#menu-3-merakit-video--audio-asmr-hujan-lengkap)
+5. [MENU 4: Merakit Video & Audio ASMR Api (Lengkap)](#menu-4-merakit-video--audio-asmr-api-lengkap)
+6. [MENU 5: Buat & Siapkan Semua Folder Projek Otomatis](#menu-5-buat--siapkan-semua-folder-projek-otomatis)
+7. [MENU 6: Cek & Perbarui Tools / Auto Update](#menu-6-cek--perbarui-tools--auto-update)
+8. [MENU 7: Keluar Program](#menu-7-keluar-program)
 
 ---
 
-## 🧩 BAB 1: MENGENAL APLIKASI YANG DIBUTUHKAN
+## 🛑 LANGKAH PERSIAPAN BAHAN DI FILE MANAGER HP
 
-Untuk membuat video ASMR durasi panjang (1 - 10 jam) di HP Android, Anda hanya membutuhkan **2 Hal Utama**:
+Buka aplikasi **File Manager / Pengelola File** bawaan HP Anda sebelum membuka Termux:
 
-1. **Termux (Mesin Pemproses Video & Audio)**
-   * *Fungsi:* Tempat kita menjalankan perintah otomatis untuk menggabungkan, mengompres, dan merakit video/audio.
-   * *Analogi:* Ini seperti mesin kompor dapur tempat memasak bahan-bahan Anda.
+1. **Menyiapkan Audio Mentah:**
+   * Pindahkan file audio mentah (15 menit) ke folder:  
+     📁 **`Penyimpanan Internal` ➔ `PROJECT ASMR` ➔ `AUDIO`**  
+     *(Contoh nama file: `suara_hujan_mentah.m4a`)*.
 
-2. **Aplikasi File / File Manager Bawaan HP Anda**
-   * *Fungsi:* Tempat biasa Anda melihat foto, lagu, atau video di HP (Misal: aplikasi *File Manager*, *Pengelola File*, *My Files*, atau *File* bawaan Samsung/Xiaomi/Oppo/Vivo/Realme).
-   * *Analogi:* Ini seperti lemari kulkas tempat menyimpan bahan-bahan Anda.
-
----
-
-## 📥 BAB 2: CARA MENGINSTALL APLIKASI TERMUX
-
-> ⚠️ **Penting:** Jangan menginstall Termux dari Google Play Store karena versi Play Store sudah mati dan pasti error.
-
-* **Langkah 1:** Buka aplikasi Google Chrome di HP Anda.
-* **Langkah 2:** Masukkan alamat link ini:  
-  👉 **[f-droid.org/packages/com.termux](https://f-droid.org/en/packages/com.termux/)**
-* **Langkah 3:** Scroll layar ke bawah, cari tulisan **"Download APK"**, lalu klik tombol tersebut.
-* **Langkah 4:** Setelah file ter-download, buka file tersebut dan klik **Install**.
-  *(Jika HP memunculkan peringatan "Izinkan dari sumber ini", aktifkan tombol Izinkan).*
+2. **Menyiapkan Video Mentah:**
+   * Pindahkan file video mentah HP ke folder:  
+     📁 **`Penyimpanan Internal` ➔ `PROJECT ASMR` ➔ `SEBELUM LOOP`**  
+     *(Contoh nama file: `video_hujan1.mp4` & `video_hujan2.mp4`)*.
 
 ---
 
-## 🚀 BAB 3: CARA PEMASANGAN TOOLS PERTAMA KALI DI TERMUX
+## 🎵 MENU 1: MERAKIT AUDIO SEAMLESS DURASI PANJANG (LENGKAP)
 
-Setelah Termux ter-install di HP Anda, ikuti langkah pemasangan otomatis ini:
+### **Langkah Pengeksekusian:**
+1. Buka aplikasi **Termux**, ketik `asmr` lalu tekan **Enter**.
+2. Di layar utama, ketik angka **`1`** lalu tekan **Enter**.
 
-### **Langkah 1: Buka Termux & Jalankan Perintah Persiapan**
-1. Buka aplikasi **Termux**.
-2. **Salin (Copy)** perintah satu baris di bawah ini:
-   ```bash
-   pkg update -y && pkg install ffmpeg git -y && termux-setup-storage
-   ```
-3. **Tempel (Paste)** di dalam layar hitam Termux, lalu tekan tombol **Enter** di keyboard HP.
-4. **Saat Layar Pop-Up Izin Muncul:**  
-   HP Anda akan menampilkan pesan: *"Izinkan Termux mengakses foto dan media?"*  
-   👉 **Wajib Pilih: IZINKAN / ALLOW.**
+### **Pertanyaan & Pengetikan Layar Demi Layar:**
 
-### **Langkah 2: Salin Perintah Instalasi Utama**
-Salin dan jalankan perintah satu baris di bawah ini ke layar Termux:
+* **Pertanyaan 1: Konfirmasi Aksinya**
+  ```text
+  📌 Konfirmasi Aksinya:
+    [1] Lanjutkan Rakit Audio
+    [2] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `1` ➔ Tekan **Enter**.
 
-```bash
-git clone https://github.com/setiajiekaputra01-cmd/tools-asmr.git ~/tools_asmr && cp ~/tools_asmr/*.sh ~ && chmod +x ~/*.sh && cp ~/PROJEK_ASMR_HUJAN.sh $PREFIX/bin/asmr && chmod +x $PREFIX/bin/asmr
-```
-Tekan **Enter**.
+* **Pertanyaan 2: Informasi Bahan Audio**
+  ```text
+  📁 Informasi Bahan Audio:
+     Folder Default: /sdcard/PROJECT ASMR/AUDIO
+  ➔ Masukkan lokasi file audio (Default: /sdcard/PROJECT ASMR/AUDIO/audio_bandlab.m4a):
+  ```
+  👉 **Yang Anda ketik:** Langsung tekan **Enter** *(Otomatis memakai file audio yang ada di folder)*.
 
-🎉 **Selamat!** Tools buatan Mas Arif kini sudah terpasang 100% dan siap digunakan kapan saja!
+* **Pertanyaan 3: Pilih Durasi Output Audio**
+  ```text
+  ⏱️ Pilih Durasi Output Audio:
+    [1] 1 Jam (Seamless, Loop)
+    [2] 2 Jam (Seamless, Loop)
+    [3] 4 Jam (Seamless, Loop)
+    [4] 8 Jam (Seamless, Loop)
+    [5] 10 Jam (Seamless, Loop) [Rekomendasi]
+    [6] Custom Jam (Ketik Manual)
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `5` ➔ Tekan **Enter**.
 
----
+* **Pertanyaan 4: Audio Fade-In (Suara Masuk Perlahan)**
+  ```text
+  🔊 Pengaturan Audio Fade-In (Masuk Perlahan):
+  ➔ Masukkan durasi Fade-In dalam detik (0 = Tanpa Fade-In, Default: 5):
+  ```
+  👉 **Yang Anda ketik:** `5` ➔ Tekan **Enter**.
 
-## 📂 BAB 4: CARA MEMINDAHKAN FILE PAKAI FILE MANAGER BAWAAN HP
+* **Pertanyaan 5: Audio Fade-Out (Suara Keluar Perlahan)**
+  ```text
+  🔉 Pengaturan Audio Fade-Out (Keluar Perlahan):
+  ➔ Masukkan durasi Fade-Out dalam detik (0 = Tanpa Fade-Out, Default: 5):
+  ```
+  👉 **Yang Anda ketik:** `5` ➔ Tekan **Enter**.
 
-Tools ini secara otomatis membuatkan folder penyimpanan di memori internal HP Anda. 
-
-### **Cara Melihat Folder Pakai File Manager Bawaan HP:**
-1. Buka aplikasi **File Manager / Pengelola File** bawaan HP Anda.
-2. Masuk ke **Penyimpanan Internal (Internal Storage)**.
-3. Cari folder bernama **`PROJECT ASMR`**.
-
-Di dalam folder `PROJECT ASMR`, terdapat sub-folder dengan fungsi masing-masing:
-
-| Nama Folder | Fungsi Folder |
-| :--- | :--- |
-| 📁 **`PROJECT ASMR/AUDIO`** | **Tempat Menaruh Audio Mentah.** Taruh file lagu/suara mentah 15 menit (misal `audio_bandlab.m4a`) di sini. |
-| 📁 **`PROJECT ASMR/SEBELUM LOOP`** | **Tempat Menaruh Video Mentah.** Taruh file video mentah HP yang ingin di-loop atau dikompres di sini. |
-| 📁 **`PROJECT ASMR/HASIL HUJAN`** | **Tempat Video ASMR Hujan.** File video hasil rakitan ASMR Hujan 10 jam akan otomatis tersimpan di sini. |
-| 📁 **`PROJECT ASMR/HASIL API`** | **Tempat Video ASMR Api.** File video hasil rakitan ASMR Api 10 jam akan otomatis tersimpan di sini. |
-| 📁 **`PROJECT ASMR/HASIL KOMPRES`** | **Tempat Video Kompresi.** Hasil kompresi video massal akan tersimpan di sini. |
-
----
-
-## 🛠️ BAB 5: PENJELASAN FUNGSI SEMUA MENU (MENU 1 SAMPAI 7)
-
-Setiap kali Anda mengetik perintah **`asmr`** di Termux, akan muncul 7 pilihan menu utama:
-
----
-
-### 🎵 **Menu [1] Merakit Audio Seamless Durasi Panjang**
-* **Fungsi:** Mengubah audio mentah pendek 15 menit menjadi satu file audio mulus durasi panjang (1, 2, 4, 8, atau 10 Jam) **tanpa jeda patahan/suara klik**.
-* **Fitur Kustomisasi:**
-  * *Pilih Durasi:* 1 Jam, 2 Jam, 4 Jam, 8 Jam, atau 10 Jam.
-  * *Audio Fade-In:* Suara audio masuk secara perlahan (misal 5 detik).
-  * *Audio Fade-Out:* Suara audio mengecil perlahan di akhir video (misal 5 detik).
+* **Hasil Akhir:** File audio mulus `.m4a` 10 jam tersimpan di folder HP:  
+  📂 **`PROJECT ASMR/AUDIO/audio_10jam_mulus.m4a`**.
 
 ---
 
-### 🎬 **Menu [2] Mengompres Video Massal**
-* **Fungsi:** Mengecilkan ukuran file (*file size*) dan resolusi banyak video sekaligus agar memori HP tidak cepat penuh.
-* **Fitur Kustomisasi:**
-  * *Resolusi:* 1080p, 720p (Rekomendasi Hemat), 480p, atau Original.
-  * *Tingkat Kompresi:* CRF 23 (Kualitas Bagus), CRF 26 (Hemat Storage), CRF 28 (Super Hemat).
+## 🎬 MENU 2: MENGOMPRES VIDEO MASSAL (LENGKAP)
+
+### **Langkah Pengeksekusian:**
+1. Buka Termux, ketik `asmr` ➔ Tekan **Enter**.
+2. Ketik angka **`2`** ➔ Tekan **Enter**.
+
+### **Pertanyaan & Pengetikan Layar Demi Layar:**
+
+* **Pertanyaan 1: Konfirmasi Aksinya**
+  👉 **Yang Anda ketik:** `1` ➔ Tekan **Enter**.
+
+* **Pertanyaan 2: Pilih Resolusi Output Video Target**
+  ```text
+  📺 Pilih Resolusi Output Video Target:
+    [1] 1080p (Full HD - Tajam)
+    [2] 720p  (HD - Rekomendasi Hemat Memori)
+    [3] 480p  (SD - Super Hemat Memori)
+    [4] Resolusi Asli Video Input
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `2` ➔ Tekan **Enter**.
+
+* **Pertanyaan 3: Pilih Tingkat Kompresi (CRF)**
+  ```text
+  🎛️ Pilih Tingkat Kompresi (CRF):
+    [1] Seimbang (CRF 23 - Kualitas Bagus)
+    [2] Kompresi Tinggi (CRF 26 - Rekomendasi Hemat Storage)
+    [3] Super Hemat (CRF 28 - Ukuran Sangat Kecil)
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `2` ➔ Tekan **Enter**.
+
+* **Hasil Akhir:** Seluruh video mentah di folder `SEBELUM LOOP` terkompresi hemat memori dan tersimpan di:  
+  📂 **`PROJECT ASMR/HASIL KOMPRES/`**.
 
 ---
 
-### 🌧️ **Menu [3] Merakit Video & Audio ASMR Hujan**
-* **Fungsi:** Merakit video dan audio khusus konten **ASMR Hujan** durasi panjang (10 jam).
-* **Profil Visual Khusus:** Menggunakan racikan `-tune grain` (CRF 23) agar **tetesan air hujan, cipratan air, dan tekstur basah tetap tajam & jernih** tanpa blur.
-* **Pilihan Mode Video:**
-  * *Dengan Intro:* Jika file video bernama berurutan (`1.mp4` = Intro, `2.mp4` = Loop Body).
-  * *Tanpa Intro:* Jika nama file video acak/bebas (misal `hujan1.mp4`, `hujan_deras.mp4`).
+## 🌧️ MENU 3: MERAKIT VIDEO & AUDIO ASMR HUJAN (LENGKAP)
+
+### **Langkah Pengeksekusian:**
+1. Buka Termux, ketik `asmr` ➔ Tekan **Enter**.
+2. Ketik angka **`3`** ➔ Tekan **Enter**.
+
+### **Pertanyaan & Pengetikan Layar Demi Layar:**
+
+* **Pertanyaan 1: Konfirmasi Aksinya**
+  👉 **Yang Anda ketik:** `1` ➔ Tekan **Enter**.
+
+* **Pertanyaan 2: Mode Video (Dengan Intro vs Tanpa Intro)**
+  ```text
+  ❓ Apakah video Anda menggunakan Intro khusus?
+    [1] Ya, Gunakan Video Intro (Video 1 = Intro, Video 2 = Loop Body)
+    [2] Tidak, Tanpa Intro (Langsung Loop dari File Mana Saja) [Rekomendasi]
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `2` *(Jika nama video bebas/acak)* ➔ Tekan **Enter**.
+
+* **Pertanyaan 3: Resolusi Video Target**
+  👉 **Yang Anda ketik:** `2` (720p) ➔ Tekan **Enter**.
+
+* **Pertanyaan 4: Kualitas Visual (CRF)**
+  ```text
+  🎛️ Pilih Kualitas Visual (CRF - Constant Rate Factor):
+    [1] Super Jernih (CRF 20)
+    [2] Seimbang (CRF 23) [Rekomendasi Tekstur Air]
+    [3] Hemat Memori HP (CRF 26)
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `2` ➔ Tekan **Enter**.
+
+* **Pertanyaan 5: Video Fade-In (Hitam ke Terang)**
+  ```text
+  🎬 Tambahkan Efek Video Fade-In (Hitam ke Terang) di Awal Video?
+    [1] Tanpa Fade-In (0 Detik)
+    [2] 2 Detik
+    [3] 3 Detik [Rekomendasi]
+    [4] 5 Detik
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `3` ➔ Tekan **Enter**.
+
+* **Pertanyaan 6: Pilih File Audio Rakitan**
+  ```text
+  🎵 Silakan pilih file audio untuk menyatukan dengan video:
+    [1] audio_10jam_mulus.m4a (Durasi: 600:00)
+    [0] Kembali ke Menu Utama
+  ```
+  👉 **Yang Anda ketik:** `1` ➔ Tekan **Enter**.
+
+* **Hasil Akhir:** Video ASMR Hujan 10 jam berkualitas tinggi siap dipakai dan tersimpan di:  
+  📂 **`PROJECT ASMR/HASIL HUJAN/`**.
 
 ---
 
-### 🔥 **Menu [4] Merakit Video & Audio ASMR Api**
-* **Fungsi:** Merakit video dan audio khusus konten **ASMR Api / Perapian (Fireplace)**.
-* **Profil Visual Khusus:** Menggunakan racikan `Deep Dark Fire` (`aq-mode=2`, CRF 22) untuk **mencegah garis patahan warna (color banding)** pada latar belakang kamar gelap dan menjaga pendaran bara api tetap lembut.
+## 🔥 MENU 4: MERAKIT VIDEO & AUDIO ASMR API (LENGKAP)
+
+* **Langkah & Pertanyaan:** Sama persis seperti Menu [3].
+* **Keunggulan Otomatis:** Sistem secara otomatis menerapkan profile **Deep Dark Fire** (`-tune film`, `aq-mode=2`, CRF 22) untuk membuang kotak-kotak patahan piksel di latar belakang perapian yang gelap.
+* **Hasil Akhir:** Video ASMR Api 10 jam tersimpan di:  
+  📂 **`PROJECT ASMR/HASIL API/`**.
 
 ---
 
-### 📁 **Menu [5] Buat & Siapkan Semua Folder Projek Otomatis**
-* **Fungsi:** Pilihan darurat untuk memverifikasi atau membuat ulang seluruh folder di memori HP secara otomatis tanpa perlu buat folder manual.
+## 📁 MENU 5: BUAT & SIAPKAN SEMUA FOLDER PROJEK OTOMATIS
+
+* **Fungsi:** Menu cepat jika folder projek terhapus atau ingin mereset folder.
+* **Cara Pakai:** Ketik `5` ➔ Tekan **Enter** ➔ Tekan **Enter** lagi untuk kembali ke dashboard.
 
 ---
 
-### 🔄 **Menu [6] Cek & Perbarui Tools (Auto Update)**
-* **Fungsi:** Memeriksa apakah Mas Arif baru saja merilis fitur baru atau perbaikan bug di GitHub. Jika ada versi baru, tools akan ter-update otomatis dengan 1 klik.
+## 🔄 MENU 6: CEK & PERBARUI TOOLS (AUTO UPDATE)
+
+* **Fungsi:** Memeriksa pembaruan skrip di GitHub dari Mas Arif.
+* **Cara Pakai:** Ketik `6` ➔ Tekan **Enter**.
+  * Jika ada update: Ketik `1` ➔ Tekan **Enter** (Tools otomatis mengunduh skrip terbaru).
 
 ---
 
-### 🚪 **Menu [7] Keluar Program**
-* **Fungsi:** Menutup tools dan kembali ke terminal biasa.
+## 🚪 MENU 7: KELUAR PROGRAM
 
----
-
-## 📋 BAB 6: URUTAN LANGKAH KERJA DARI AWAL SAMPAI VIDEO JADI (SOP)
-
-Berikut adalah urutan langkah demi langkah yang harus dilakukan setiap kali ingin membuat konten:
-
-```text
-[LANGKAH 1: SIAPKAN BAHAN PAKAI FILE MANAGER BAWAAN HP]
-   │  • Buka aplikasi File Manager / Pengelola File HP
-   │  • Masukkan Audio 15 Menit ➔ folder "PROJECT ASMR/AUDIO"
-   │  • Masukkan Video Mentah  ➔ folder "PROJECT ASMR/SEBELUM LOOP"
-   ▼
-[LANGKAH 2: BUKA TERMUX]
-   │  • Buka aplikasi Termux
-   │  • Ketik perintah: asmr
-   │  • Tekan Enter
-   ▼
-[LANGKAH 3: PILIH MENU & JAWAB PERTANYAAN INTERAKTIF]
-   │  • Pilih Menu [1] untuk merakit audio dulu (atau langsung Menu [3] / [4])
-   │  • Jawab pilihan Mode Intro / Tanpa Intro
-   │  • Jawab pilihan Resolusi (720p / 1080p)
-   │  • Jawab pilihan Video Fade-In (3 detik)
-   ▼
-[LANGKAH 4: PROSES RENDERING BERJALAN]
-   │  • Biarkan Termux bekerja (Layar HP boleh dikunci / redup)
-   │  • Tunggu sampai muncul tulisan hijau: "SUKSES! Video ASMR berhasil dicetak!"
-   ▼
-[LANGKAH 5: AMBIL VIDEO DI FILE MANAGER HP]
-   │  • Buka File Manager HP ➔ folder "PROJECT ASMR/HASIL HUJAN" (atau HASIL API)
-   └─ • Video durasi panjang siap Anda upload ke YouTube / TikTok / Reels!
-```
-
----
-
-## 👑 BAB 7: KHUSUS PEMBUAT (MAS ARIF) - CARA MERILIS PEMBARUAN
-
-> ⚠️ *Bagian ini khusus untuk Mas Arif ketika ingin mempublikasikan fitur baru.*
-
-Jika Mas Arif telah selesai mengedit atau menambah fitur baru di skrip HP milik Mas Arif, jalankan perintah ini di Termux:
-
-```bash
-asmr-push
-```
-
----
-
-## 🛠️ BAB 8: SOLUSI MASALAH & TANYA JAWAB (TROUBLESHOOTING)
-
-### **Q1: Apakah Layar HP Harus Tetap Menyala Saat Rendering Video 10 Jam?**
-**Jawab:** Tidak perlu! Tools ini dilengkapi fitur *Wake Lock* otomatis. Layar HP Anda boleh dikunci atau diredupkan, dan Termux akan tetap bekerja menyelesaikan video di latar belakang (*background*).
-
-### **Q2: Bagaimana Jika Memori HP Saya Pas-pasan?**
-**Jawab:** Pilih resolusi **`720p`** dan tingkat kompresi **`CRF 26`**. Pengaturan ini akan membatasi ukuran video 10 jam hanya sekitar **1 - 1.5 GB** tanpa mengurangi kejernihan gambar di layar smartphone maupun TV.
-
-### **Q3: Bagaimana Jika Saya Salah Pilih Menu di Tengah Jalan?**
-**Jawab:** Di setiap tahap pertanyaan, Anda selalu bisa memilih angka **`[2]`** (Kembali ke Menu Utama) atau mengetik angka **`[0]`** untuk membatalkan dan kembali ke tampilan awal.
-
----
-*Buku Panduan ini telah disimpan dan diunggah ke GitHub repositori Anda!* 🌧️🔥
+* **Fungsi:** Menutup program `asmr`.
+* **Cara Pakai:** Ketik `7` ➔ Tekan **Enter**.
