@@ -39,6 +39,10 @@ FOLDER_API_HASIL="$BASE_PROJECT/HASIL API"
 FOLDER_KOMPRES_OUT="$BASE_PROJECT/HASIL KOMPRES"
 FOLDER_BAHAN_MENTAH="$BASE_PROJECT/BAHAN MENTAH"
 
+# Variabel Global Cek Update Remote
+REMOTE_VERSION_DETECTED=""
+UPDATE_AVAILABLE=false
+
 # Fungsi Otomatis: Buat & Siapkan Seluruh Folder Projek Tanpa Manual
 setup_all_folders_auto() {
     if ! ls /sdcard &>/dev/null; then
@@ -67,8 +71,18 @@ setup_all_folders_auto() {
     fi
 }
 
-# Jalankan Otomatis Pembuatan Folder Saat Aplikasi Dimulai
+# Fungsi Fast Silent Check Update dari GitHub (Max 2 detik)
+check_update_silent() {
+    REMOTE_VER=$(curl -sSL --max-time 2 "$GITHUB_REPO_RAW/VERSION" 2>/dev/null | tr -d '\r\n ')
+    if [ -n "$REMOTE_VER" ] && [ "$REMOTE_VER" != "$CURRENT_VERSION" ]; then
+        REMOTE_VERSION_DETECTED="$REMOTE_VER"
+        UPDATE_AVAILABLE=true
+    fi
+}
+
+# Jalankan Otomatis Pembuatan Folder & Cek Update
 setup_all_folders_auto
+check_update_silent
 
 # Fungsi: Tampilan Manual Menu Pembuatan Folder (Menu 5)
 setup_folders_interactive() {
@@ -106,7 +120,7 @@ run_auto_update() {
     echo ""
     echo -e " ${C_TITLE}[*] Memeriksa versi terbaru di GitHub...${NC}"
 
-    REMOTE_VERSION=$(curl -sSL "$GITHUB_REPO_RAW/VERSION" 2>/dev/null | tr -d '\r\n ')
+    REMOTE_VERSION=$(curl -sSL --max-time 5 "$GITHUB_REPO_RAW/VERSION" 2>/dev/null | tr -d '\r\n ')
 
     if [ -z "$REMOTE_VERSION" ]; then
         echo -e " ${C_RED}[!] Gagal terhubung ke GitHub. Cek koneksi internet HP Anda!${NC}\n"
@@ -128,7 +142,7 @@ run_auto_update() {
             return
         fi
     else
-        echo -e " ${C_TITLE}🔔 TERSEDIA PEMBARUAN BARU! ($CURRENT_VERSION ➔ $REMOTE_VERSION)${NC}\n"
+        echo -e " ${C_TITLE}🔔 TERSEDIA PEMBARUAN BARU DARI MAS ARIF! ($CURRENT_VERSION ➔ $REMOTE_VERSION)${NC}\n"
         echo -e " 📌 Lanjutkan proses perbarui tools?"
         echo -e "  ${C_NUM}[1]${NC} Lanjutkan Update Sekarang"
         echo -e "  ${C_NUM}[2]${NC} ${C_RED}Kembali ke Menu Utama${NC}"
@@ -189,11 +203,26 @@ show_header() {
         ST_FFMPEG="${C_RED}✗ Belum Terinstall${NC}   "
     fi
 
+    # Status Versi
+    if [ "$UPDATE_AVAILABLE" = true ]; then
+        ST_VER="${C_TITLE}$CURRENT_VERSION${NC} ${C_RED}🔔 ($REMOTE_VERSION_DETECTED Tersedia!)${NC}"
+    else
+        ST_VER="${C_TITLE}$CURRENT_VERSION${NC} ${C_GREEN}(Terbaru)${NC}               "
+    fi
+
     echo -e "${C_BORDER}│${NC} ${C_MUTED}Status Sistem:${NC}                                       ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}  • Akses SDCard  : $ST_STORAGE ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}│${NC}  • FFMPEG Engine : $ST_FFMPEG ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  • Versi Tools   : ${C_TITLE}$CURRENT_VERSION${NC} ${C_GREEN}(Aktif)${NC}                 ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  • Versi Tools   : $ST_VER ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+
+    # Banner Notifikasi Jika Ada Update
+    if [ "$UPDATE_AVAILABLE" = true ]; then
+        echo -e "${C_TITLE}╭──────────────────────────────────────────────────────╮${NC}"
+        echo -e "${C_TITLE}│${NC} ${BOLD}${C_RED}🔔 PEMBARUAN BARU TERSEDIA! Versi $REMOTE_VERSION_DETECTED telah rilis! ${NC} ${C_TITLE}│${NC}"
+        echo -e "${C_TITLE}│${NC}    ${C_TEXT}Pilih Menu [6] untuk memperbarui secara otomatis. ${NC} ${C_TITLE}│${NC}"
+        echo -e "${C_TITLE}╰──────────────────────────────────────────────────────╯${NC}"
+    fi
 }
 
 # Fungsi: Sub-Projek 1 (Merakit Audio Seamless Durasi Panjang)
