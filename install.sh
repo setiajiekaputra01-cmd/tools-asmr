@@ -32,12 +32,18 @@ if [ -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
     cp -f ~/tools_asmr/*.sh ~ 2>/dev/null
     chmod +x ~/*.sh 2>/dev/null
     
-    # Buat Wrapper Executable Pintas di $PREFIX/bin/asmr
+    # Buat Wrapper Executable Pintas di $PREFIX/bin/asmr dan $HOME/asmr
     cat << 'EOF' > $PREFIX/bin/asmr
 #!/data/data/com.termux/files/usr/bin/bash
 exec bash "$HOME/PROJEK_ASMR_HUJAN.sh" "$@"
 EOF
     chmod +x $PREFIX/bin/asmr 2>/dev/null
+
+    cat << 'EOF' > $HOME/asmr
+#!/data/data/com.termux/files/usr/bin/bash
+exec bash "$HOME/PROJEK_ASMR_HUJAN.sh" "$@"
+EOF
+    chmod +x $HOME/asmr 2>/dev/null
 
     cat << 'EOF' > $PREFIX/bin/asmr-push
 #!/data/data/com.termux/files/usr/bin/bash
