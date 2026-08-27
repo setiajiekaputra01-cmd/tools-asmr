@@ -423,6 +423,16 @@ while true; do
     echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[7]${NC} ${BOLD}${C_RED}Keluar Program${NC}                                 ${C_BORDER}│${NC}"
     echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
     echo ""
+    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
+    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}💬 LAYANAN BANTUAN & APRESIASI MAS ARIF${NC}              ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
+    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Saran, Kendala & Feedback:${NC}                         ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}    ${BOLD}${C_GREEN}📱 WhatsApp Mas Arif : 0851-7321-5732${NC}              ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Traktir Kopi Mas Arif:${NC}                             ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}│${NC}    ${BOLD}${C_TITLE}☕ DANA Mas Arif     : 0851-7321-5732${NC}              ${C_BORDER}│${NC}"
+    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    echo ""
     echo -ne " ${BOLD}${C_TITLE}❯ Masukkan Pilihan Menu [1-7]:${NC} "
     read main_choice
     main_choice="${main_choice//[$'\t\r ']/}"
@@ -451,6 +461,9 @@ while true; do
             echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
             echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}       Terima kasih telah memakai Tools Mas Arif!      ${NC} ${C_BORDER}│${NC}"
             echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}       Semangat bikin konten ASMR Hujan & Api! 🌧️🔥     ${NC} ${C_BORDER}│${NC}"
+            echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
+            echo -e "${C_BORDER}│${NC}  ${C_MUTED}• WhatsApp Mas Arif :${NC} ${C_GREEN}0851-7321-5732${NC}                  ${C_BORDER}│${NC}"
+            echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Traktir DANA     :${NC} ${C_TITLE}0851-7321-5732${NC}                  ${C_BORDER}│${NC}"
             echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}\n"
             exit 0
             ;;
