@@ -43,20 +43,22 @@ FOLDER_BAHAN_MENTAH="$BASE_PROJECT/BAHAN MENTAH"
 REMOTE_VERSION_DETECTED=""
 UPDATE_AVAILABLE=false
 
-# Engine Layout Dinamis Full Screen Layar HP
-COLS=$(tput cols 2>/dev/null || echo 60)
-if [ "$COLS" -lt 45 ]; then COLS=45; fi
-if [ "$COLS" -gt 68 ]; then COLS=68; fi
+# Engine Layout 100% Full-Screen Dynamic Width
+update_screen_layout() {
+    COLS=$(tput cols 2>/dev/null || echo 80)
+    if [ "$COLS" -lt 40 ]; then COLS=40; fi
 
-INNER_WIDTH=$((COLS - 4))
-BORDER_STR=""
-for ((i=0; i<INNER_WIDTH; i++)); do BORDER_STR="${BORDER_STR}─"; done
+    INNER_WIDTH=$((COLS - 4))
+    BORDER_STR=""
+    for ((i=0; i<INNER_WIDTH; i++)); do BORDER_STR="${BORDER_STR}─"; done
+}
 
-draw_top()    { echo -e "${C_BORDER}╭─${BORDER_STR}─╮${NC}"; }
-draw_sep()    { echo -e "${C_BORDER}├─${BORDER_STR}─┤${NC}"; }
-draw_bottom() { echo -e "${C_BORDER}╰─${BORDER_STR}─╯${NC}"; }
+draw_top()    { update_screen_layout; echo -e "${C_BORDER}╭─${BORDER_STR}─╮${NC}"; }
+draw_sep()    { update_screen_layout; echo -e "${C_BORDER}├─${BORDER_STR}─┤${NC}"; }
+draw_bottom() { update_screen_layout; echo -e "${C_BORDER}╰─${BORDER_STR}─╯${NC}"; }
 
 draw_line() {
+    update_screen_layout
     local text="$1"
     local raw_len
     raw_len=$(echo -e "$text" | sed 's/\x1b\[[0-9;]*m//g' | wc -m)
@@ -69,6 +71,7 @@ draw_line() {
 }
 
 draw_center() {
+    update_screen_layout
     local text="$1"
     local raw_len
     raw_len=$(echo -e "$text" | sed 's/\x1b\[[0-9;]*m//g' | wc -m)
