@@ -8,11 +8,26 @@ echo -e "\033[38;5;39m╭──────────────────�
 echo -e "\033[38;5;39m│\033[0m \033[1m\033[38;5;220m   🚀 MEMASANG TOOLS LOOPING VIDEO ASMR (MAS ARIF)    \033[0m \033[38;5;39m│\033[0m"
 echo -e "\033[38;5;39m╰──────────────────────────────────────────────────────╯\033[0m\n"
 
-echo -e " \033[38;5;220m[*] Memeriksa & mengunduh berkas terbaru dari GitHub...\033[0m"
-rm -rf ~/tools_asmr
-git clone https://github.com/setiajiekaputra01-cmd/tools-asmr.git ~/tools_asmr
+RAW_BASE="https://raw.githubusercontent.com/setiajiekaputra01-cmd/tools-asmr/main"
 
-if [ $? -eq 0 ] && [ -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
+echo -e " \033[38;5;220m[*] Memeriksa & mengunduh berkas terbaru dari GitHub...\033[0m"
+rm -rf ~/tools_asmr 2>/dev/null
+
+# Metode 1: Menggunakan Git Clone
+git clone https://github.com/setiajiekaputra01-cmd/tools-asmr.git ~/tools_asmr 2>/dev/null
+
+# Metode 2: Fallback Curl jika Git Clone gagal di jaringan HP tertentu
+if [ ! -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
+    echo -e " \033[38;5;214m[*] Menggunakan metode unduh langsung (Curl Fallback)... \033[0m"
+    mkdir -p ~/tools_asmr
+    curl -sSL "$RAW_BASE/PROJEK_ASMR_HUJAN.sh" -o ~/tools_asmr/PROJEK_ASMR_HUJAN.sh
+    curl -sSL "$RAW_BASE/asmr_dual_video_loop.sh" -o ~/tools_asmr/asmr_dual_video_loop.sh
+    curl -sSL "$RAW_BASE/rakit_audio.sh" -o ~/tools_asmr/rakit_audio.sh
+    curl -sSL "$RAW_BASE/kompres_massal.sh" -o ~/tools_asmr/kompres_massal.sh
+    curl -sSL "$RAW_BASE/VERSION" -o ~/tools_asmr/VERSION
+fi
+
+if [ -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
     cp -f ~/tools_asmr/*.sh ~ 2>/dev/null
     chmod +x ~/*.sh 2>/dev/null
     cp -f ~/PROJEK_ASMR_HUJAN.sh $PREFIX/bin/asmr 2>/dev/null
