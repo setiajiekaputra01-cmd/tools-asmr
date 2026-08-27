@@ -23,8 +23,12 @@ C_CYAN="\033[38;5;51m"     # Bright Cyan
 NC="\033[0m"               # Reset Color
 BOLD="\033[1m"
 
-# Lokasi File Script Sub-Projek
+# Lokasi File Script Sub-Projek (Otomatis Deteksi $HOME jika dijalankan dari $PREFIX/bin)
 DIR_SEKARANG="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ "$DIR_SEKARANG" = "$PREFIX/bin" ] || [ ! -f "$DIR_SEKARANG/rakit_audio.sh" ]; then
+    DIR_SEKARANG="$HOME"
+fi
+
 SCRIPT_AUDIO="$DIR_SEKARANG/rakit_audio.sh"
 SCRIPT_KOMPRES="$DIR_SEKARANG/kompres_massal.sh"
 SCRIPT_KOMPRES_PRO="$DIR_SEKARANG/kompres_video_pro.sh"
@@ -205,11 +209,8 @@ run_auto_update() {
     curl -sSL "$GITHUB_REPO_RAW/VERSION" -o "$DIR_SEKARANG/VERSION"
 
     chmod +x "$DIR_SEKARANG"/*.sh 2>/dev/null
-    cat << 'EOF' > $PREFIX/bin/asmr
-#!/data/data/com.termux/files/usr/bin/bash
-exec bash "$HOME/PROJEK_ASMR_HUJAN.sh" "$@"
-EOF
-    chmod +x $PREFIX/bin/asmr 2>/dev/null
+    cp -f "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh" "$PREFIX/bin/asmr" 2>/dev/null
+    chmod +x "$PREFIX/bin/asmr" 2>/dev/null
 
     echo ""
     draw_top
