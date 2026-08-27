@@ -25,14 +25,24 @@ if [ ! -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
     curl -sSL "$RAW_BASE/rakit_audio.sh" -o ~/tools_asmr/rakit_audio.sh
     curl -sSL "$RAW_BASE/kompres_massal.sh" -o ~/tools_asmr/kompres_massal.sh
     curl -sSL "$RAW_BASE/VERSION" -o ~/tools_asmr/VERSION
+    curl -sSL "$RAW_BASE/push_update.sh" -o ~/tools_asmr/push_update.sh
 fi
 
 if [ -f "$HOME/tools_asmr/PROJEK_ASMR_HUJAN.sh" ]; then
     cp -f ~/tools_asmr/*.sh ~ 2>/dev/null
     chmod +x ~/*.sh 2>/dev/null
-    cp -f ~/PROJEK_ASMR_HUJAN.sh $PREFIX/bin/asmr 2>/dev/null
+    
+    # Buat Wrapper Executable Pintas di $PREFIX/bin/asmr
+    cat << 'EOF' > $PREFIX/bin/asmr
+#!/data/data/com.termux/files/usr/bin/bash
+exec bash "$HOME/PROJEK_ASMR_HUJAN.sh" "$@"
+EOF
     chmod +x $PREFIX/bin/asmr 2>/dev/null
-    cp -f ~/push_update.sh $PREFIX/bin/asmr-push 2>/dev/null
+
+    cat << 'EOF' > $PREFIX/bin/asmr-push
+#!/data/data/com.termux/files/usr/bin/bash
+exec bash "$HOME/push_update.sh" "$@"
+EOF
     chmod +x $PREFIX/bin/asmr-push 2>/dev/null
     
     echo -e "\n\033[38;5;39m╭──────────────────────────────────────────────────────╮\033[0m"
