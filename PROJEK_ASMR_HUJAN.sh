@@ -39,9 +39,50 @@ FOLDER_API_HASIL="$BASE_PROJECT/HASIL API"
 FOLDER_KOMPRES_OUT="$BASE_PROJECT/HASIL KOMPRES"
 FOLDER_BAHAN_MENTAH="$BASE_PROJECT/BAHAN MENTAH"
 
-# Variabel Global Cek Update Remote
+# Variabel Global Cek Update Remote & Layout
 REMOTE_VERSION_DETECTED=""
 UPDATE_AVAILABLE=false
+
+# Engine Layout Dinamis Full Screen Layar HP
+COLS=$(tput cols 2>/dev/null || echo 60)
+if [ "$COLS" -lt 45 ]; then COLS=45; fi
+if [ "$COLS" -gt 68 ]; then COLS=68; fi
+
+INNER_WIDTH=$((COLS - 4))
+BORDER_STR=""
+for ((i=0; i<INNER_WIDTH; i++)); do BORDER_STR="${BORDER_STR}─"; done
+
+draw_top()    { echo -e "${C_BORDER}╭─${BORDER_STR}─╮${NC}"; }
+draw_sep()    { echo -e "${C_BORDER}├─${BORDER_STR}─┤${NC}"; }
+draw_bottom() { echo -e "${C_BORDER}╰─${BORDER_STR}─╯${NC}"; }
+
+draw_line() {
+    local text="$1"
+    local raw_len
+    raw_len=$(echo -e "$text" | sed 's/\x1b\[[0-9;]*m//g' | wc -m)
+    raw_len=$((raw_len - 1))
+    
+    local pad=$((INNER_WIDTH - raw_len))
+    if [ "$pad" -lt 0 ]; then pad=0; fi
+    local pad_str=$(printf '%*s' "$pad" '')
+    echo -e "${C_BORDER}│${NC} ${text}${pad_str} ${C_BORDER}│${NC}"
+}
+
+draw_center() {
+    local text="$1"
+    local raw_len
+    raw_len=$(echo -e "$text" | sed 's/\x1b\[[0-9;]*m//g' | wc -m)
+    raw_len=$((raw_len - 1))
+    
+    local pad_total=$((INNER_WIDTH - raw_len))
+    if [ "$pad_total" -lt 0 ]; then pad_total=0; fi
+    local pad_left=$((pad_total / 2))
+    local pad_right=$((pad_total - pad_left))
+    
+    local str_left=$(printf '%*s' "$pad_left" '')
+    local str_right=$(printf '%*s' "$pad_right" '')
+    echo -e "${C_BORDER}│${NC} ${str_left}${text}${str_right} ${C_BORDER}│${NC}"
+}
 
 # Fungsi Otomatis: Buat & Siapkan Seluruh Folder Projek Tanpa Manual
 setup_all_folders_auto() {
@@ -88,21 +129,19 @@ check_update_silent
 setup_folders_interactive() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}📁 MENYIAPKAN SELURUH FOLDER PROJEK OTOMATIS...     ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    
+    draw_top
+    draw_center "${BOLD}${C_TITLE}📁 MENYIAPKAN SELURUH FOLDER PROJEK OTOMATIS...${NC}"
+    draw_sep
     setup_all_folders_auto
-
-    echo -e "${C_BORDER}│${NC}  ${C_GREEN}[✓] Semua folder projek telah siap di memori HP!       ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Folder Utama :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/            ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/AUDIO/      ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Video Mentah :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/SEBELUM LOOP/${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Hasil Hujan  :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL HUJAN/ ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Hasil Api    :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL API/   ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Hasil Kompres:${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL KOMPRES/${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_line " ${C_GREEN}[✓] Semua folder projek telah siap di memori HP!${NC}"
+    draw_line ""
+    draw_line " ${C_MUTED}• Folder Utama :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/${NC}"
+    draw_line " ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/AUDIO/${NC}"
+    draw_line " ${C_MUTED}• Video Mentah :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/SEBELUM LOOP/${NC}"
+    draw_line " ${C_MUTED}• Hasil Hujan  :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL HUJAN/${NC}"
+    draw_line " ${C_MUTED}• Hasil Api    :${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL API/${NC}"
+    draw_line " ${C_MUTED}• Hasil Kompres:${NC} ${C_BLUE}/sdcard/PROJECT ASMR/HASIL KOMPRES/${NC}"
+    draw_bottom
     echo ""
     read -p " Tekan [Enter] untuk kembali ke menu utama..."
 }
@@ -111,12 +150,12 @@ setup_folders_interactive() {
 run_auto_update() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}🔄 CEK & PERBARUI TOOLS (AUTO UPDATE)${NC}                ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Versi Saat Ini   :${NC} ${C_TITLE}$CURRENT_VERSION${NC}                        ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Repositori GitHub:${NC} ${C_BLUE}setiajiekaputra01-cmd/tools-asmr${NC}   ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_AUTHOR}🔄 CEK & PERBARUI TOOLS (AUTO UPDATE)${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Versi Saat Ini   :${NC} ${C_TITLE}$CURRENT_VERSION${NC}"
+    draw_line " ${C_MUTED}• Repositori GitHub:${NC} ${C_BLUE}setiajiekaputra01-cmd/tools-asmr${NC}"
+    draw_bottom
     echo ""
     echo -e " ${C_TITLE}[*] Memeriksa versi terbaru di GitHub...${NC}"
 
@@ -166,9 +205,11 @@ run_auto_update() {
     cp -f "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh" "$PREFIX/bin/asmr" 2>/dev/null
     chmod +x "$PREFIX/bin/asmr" 2>/dev/null
 
-    echo -e "\n${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_GREEN}  🎉 PEMBARUAN BERHASIL! TOOLS TELAH DIPERBARUI!      ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}\n"
+    echo ""
+    draw_top
+    draw_center "${BOLD}${C_GREEN}🎉 PEMBARUAN BERHASIL! TOOLS TELAH DIPERBARUI!${NC}"
+    draw_bottom
+    echo ""
     read -p " Tekan [Enter] untuk memuat ulang tools..."
     exec "$DIR_SEKARANG/PROJEK_ASMR_HUJAN.sh"
 }
@@ -176,23 +217,23 @@ run_auto_update() {
 # Fungsi: Header Dashboard Utama
 show_header() {
     clear
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}        █████╗ ███████╗███╗   ███╗██████╗         ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ██╔══██╗██╔════╝████╗ ████║██╔══██╗        ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ███████║███████╗██╔████╔██║██████╔╝        ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ██╔══██║╚════██║██║╚██╔╝██║██╔══██╗        ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ██║  ██║███████║██║ ╚═╝ ██║██║  ██║        ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${C_CYAN}${BOLD}       ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝        ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}               🌧️ TOOLS LOOPING VIDEO 🌧️               ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}          👑 Dibuat Oleh: Mas Arif ($CURRENT_VERSION) 👑         ${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
+    draw_top
+    draw_center "${C_CYAN}${BOLD}█████╗ ███████╗███╗   ███╗██████╗${NC}"
+    draw_center "${C_CYAN}${BOLD}██╔══██╗██╔════╝████╗ ████║██╔══██╗${NC}"
+    draw_center "${C_CYAN}${BOLD}███████║███████╗██╔████╔██║██████╔╝${NC}"
+    draw_center "${C_CYAN}${BOLD}██╔══██║╚════██║██║╚██╔╝██║██╔══██╗${NC}"
+    draw_center "${C_CYAN}${BOLD}██║  ██║███████║██║ ╚═╝ ██║██║  ██║${NC}"
+    draw_center "${C_CYAN}${BOLD}╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝${NC}"
+    draw_sep
+    draw_center "${BOLD}${C_TITLE}🌧️ TOOLS LOOPING VIDEO 🌧️${NC}"
+    draw_center "${BOLD}${C_AUTHOR}👑 Dibuat Oleh: Mas Arif ($CURRENT_VERSION) 👑${NC}"
+    draw_sep
     
     # Status Storage
     if ls /sdcard &>/dev/null; then
-        ST_STORAGE="${C_GREEN}✓ Aktif (Normal)${NC}       "
+        ST_STORAGE="${C_GREEN}✓ Aktif (Normal)${NC}"
     else
-        ST_STORAGE="${C_RED}✗ Tidak Aktif${NC}          "
+        ST_STORAGE="${C_RED}✗ Tidak Aktif${NC}"
     fi
 
     # Status FFMPEG
@@ -200,28 +241,29 @@ show_header() {
         FFMPEG_VER=$(ffmpeg -version | head -n 1 | cut -d' ' -f3)
         ST_FFMPEG="${C_GREEN}✓ Terinstall (v$FFMPEG_VER)${NC}"
     else
-        ST_FFMPEG="${C_RED}✗ Belum Terinstall${NC}   "
+        ST_FFMPEG="${C_RED}✗ Belum Terinstall${NC}"
     fi
 
     # Status Versi
     if [ "$UPDATE_AVAILABLE" = true ]; then
         ST_VER="${C_TITLE}$CURRENT_VERSION${NC} ${C_RED}🔔 ($REMOTE_VERSION_DETECTED Tersedia!)${NC}"
     else
-        ST_VER="${C_TITLE}$CURRENT_VERSION${NC} ${C_GREEN}(Terbaru)${NC}               "
+        ST_VER="${C_TITLE}$CURRENT_VERSION${NC} ${C_GREEN}(Terbaru)${NC}"
     fi
 
-    echo -e "${C_BORDER}│${NC} ${C_MUTED}Status Sistem:${NC}                                       ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  • Akses SDCard  : $ST_STORAGE ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  • FFMPEG Engine : $ST_FFMPEG ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  • Versi Tools   : $ST_VER ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_line "${C_MUTED}Status Sistem:${NC}"
+    draw_line " • Akses SDCard  : $ST_STORAGE"
+    draw_line " • FFMPEG Engine : $ST_FFMPEG"
+    draw_line " • Versi Tools   : $ST_VER"
+    draw_bottom
 
     # Banner Notifikasi Jika Ada Update
     if [ "$UPDATE_AVAILABLE" = true ]; then
-        echo -e "${C_TITLE}╭──────────────────────────────────────────────────────╮${NC}"
-        echo -e "${C_TITLE}│${NC} ${BOLD}${C_RED}🔔 PEMBARUAN BARU TERSEDIA! Versi $REMOTE_VERSION_DETECTED telah rilis! ${NC} ${C_TITLE}│${NC}"
-        echo -e "${C_TITLE}│${NC}    ${C_TEXT}Pilih Menu [6] untuk memperbarui secara otomatis. ${NC} ${C_TITLE}│${NC}"
-        echo -e "${C_TITLE}╰──────────────────────────────────────────────────────╯${NC}"
+        echo ""
+        draw_top
+        draw_center "${BOLD}${C_RED}🔔 PEMBARUAN BARU TERSEDIA! Versi $REMOTE_VERSION_DETECTED telah rilis!${NC}"
+        draw_center "${C_TEXT}Pilih Menu [6] untuk memperbarui secara otomatis.${NC}"
+        draw_bottom
     fi
 }
 
@@ -229,15 +271,15 @@ show_header() {
 run_audio_project() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_PURPLE}🎵 1. MERAKIT AUDIO SEAMLESS DURASI PANJANG${NC}          ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Fungsi : Merakit audio mentah 15 menit menjadi${NC}   ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}             ${C_MUTED}audio ASMR mulus (1 - 10 Jam).${NC}      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Fitur  :${NC} ${C_GREEN}Kustom Audio Fade-In & Fade-Out (Detik)${NC} ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan  :${NC} ${C_BLUE}$FOLDER_AUDIO/audio_bandlab.m4a${NC}      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Output :${NC} ${C_GREEN}audio_[DURASI]jam_mulus.m4a${NC}         ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_PURPLE}🎵 1. MERAKIT AUDIO SEAMLESS DURASI PANJANG${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Fungsi : Merakit audio mentah 15 menit menjadi${NC}"
+    draw_line "            ${C_MUTED}audio ASMR mulus (1 - 10 Jam).${NC}"
+    draw_line " ${C_MUTED}• Fitur  :${NC} ${C_GREEN}Kustom Audio Fade-In & Fade-Out (Detik)${NC}"
+    draw_line " ${C_MUTED}• Bahan  :${NC} ${C_BLUE}$FOLDER_AUDIO/audio_bandlab.m4a${NC}"
+    draw_line " ${C_MUTED}• Output :${NC} ${C_GREEN}audio_[DURASI]jam_mulus.m4a${NC}"
+    draw_bottom
     echo ""
     echo -e " ${BOLD}${C_TEXT}📌 Konfirmasi Aksinya:${NC}"
     echo -e "  ${C_NUM}[1]${NC} Lanjutkan Rakit Audio"
@@ -265,13 +307,13 @@ run_audio_project() {
 run_compress_project() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_BLUE}🎬 2. MENGOMPRES VIDEO MASSAL${NC}                        ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Fungsi : Ubah ukuran & kompresi video mentah${NC}      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Input  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}                     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Output :${NC} ${C_GREEN}$FOLDER_KOMPRES_OUT${NC}                    ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_BLUE}🎬 2. MENGOMPRES VIDEO MASSAL${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Fungsi : Ubah ukuran & kompresi video mentah${NC}"
+    draw_line " ${C_MUTED}• Input  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}"
+    draw_line " ${C_MUTED}• Output :${NC} ${C_GREEN}$FOLDER_KOMPRES_OUT${NC}"
+    draw_bottom
     echo ""
     echo -e " ${BOLD}${C_TEXT}📌 Konfirmasi Aksinya:${NC}"
     echo -e "  ${C_NUM}[1]${NC} Lanjutkan Kompresi Video"
@@ -300,15 +342,15 @@ run_compress_project() {
 run_asmr_hujan_project() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_CYAN}🌧️  3. MERAKIT VIDEO & AUDIO ASMR HUJAN${NC}              ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Profil Visual:${NC} ${C_GREEN}High-Fidelity Rain (Grain Tekstur Air)${NC}${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Opsi Kustom  :${NC} ${C_TITLE}Intro/Tanpa Intro, Resolusi, CRF, Fade${NC}${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan Video  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}                     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}$FOLDER_AUDIO${NC}                          ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Output Folder:${NC} ${C_GREEN}$FOLDER_HUJAN_HASIL${NC}                    ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_CYAN}🌧️  3. MERAKIT VIDEO & AUDIO ASMR HUJAN${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Profil Visual:${NC} ${C_GREEN}High-Fidelity Rain (Grain Tekstur Air)${NC}"
+    draw_line " ${C_MUTED}• Opsi Kustom  :${NC} ${C_TITLE}Intro/Tanpa Intro, Resolusi, CRF, Fade${NC}"
+    draw_line " ${C_MUTED}• Bahan Video  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}"
+    draw_line " ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}$FOLDER_AUDIO${NC}"
+    draw_line " ${C_MUTED}• Output Folder:${NC} ${C_GREEN}$FOLDER_HUJAN_HASIL${NC}"
+    draw_bottom
     echo ""
     echo -e " ${BOLD}${C_TEXT}📌 Konfirmasi Aksinya:${NC}"
     echo -e "  ${C_NUM}[1]${NC} Lanjutkan Rakit ASMR Hujan"
@@ -340,15 +382,15 @@ run_asmr_hujan_project() {
 run_asmr_api_project() {
     show_header
     echo -e ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}🔥 4. MERAKIT VIDEO & AUDIO ASMR API${NC}                 ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Profil Visual:${NC} ${C_GREEN}Deep Dark Fire (Anti Banding & Flicker)${NC}${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Opsi Kustom  :${NC} ${C_TITLE}Intro/Tanpa Intro, Resolusi, CRF, Fade${NC}${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan Video  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}                     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}$FOLDER_AUDIO${NC}                          ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Output Folder:${NC} ${C_GREEN}$FOLDER_API_HASIL${NC}                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_TITLE}🔥 4. MERAKIT VIDEO & AUDIO ASMR API${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Profil Visual:${NC} ${C_GREEN}Deep Dark Fire (Anti Banding & Flicker)${NC}"
+    draw_line " ${C_MUTED}• Opsi Kustom  :${NC} ${C_TITLE}Intro/Tanpa Intro, Resolusi, CRF, Fade${NC}"
+    draw_line " ${C_MUTED}• Bahan Video  :${NC} ${C_BLUE}$FOLDER_KOMPRES_IN${NC}"
+    draw_line " ${C_MUTED}• Bahan Audio  :${NC} ${C_BLUE}$FOLDER_AUDIO${NC}"
+    draw_line " ${C_MUTED}• Output Folder:${NC} ${C_GREEN}$FOLDER_API_HASIL${NC}"
+    draw_bottom
     echo ""
     echo -e " ${BOLD}${C_TEXT}📌 Konfirmasi Aksinya:${NC}"
     echo -e "  ${C_NUM}[1]${NC} Lanjutkan Rakit ASMR Api"
@@ -399,39 +441,41 @@ check_requirements
 while true; do
     show_header
     echo ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TEXT}📌 Apa yang ingin Anda buat?${NC}                          ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[1]${NC} ${BOLD}${C_PURPLE}Merakit Audio Seamless Durasi Panjang${NC}            ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Penggabungan audio ASMR mulus (1 - 10 Jam)${NC}    ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[2]${NC} ${BOLD}${C_BLUE}Mengompres Video Massal${NC}                        ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Kompresi & ubah ukuran banyak file video${NC}       ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[3]${NC} ${BOLD}${C_CYAN}Merakit Video & Audio ASMR Hujan${NC}                ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ High-Fidelity Rain (Tekstur Air & Partikel)${NC}   ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[4]${NC} ${BOLD}${C_TITLE}Merakit Video & Audio ASMR Api${NC}                  ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Deep Dark Fire (Bebas Banding & Cahaya)${NC}        ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[5]${NC} ${BOLD}${C_GREEN}Buat & Siapkan Semua Folder Projek Otomatis${NC}     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Otomatis siapkan semua folder di memori HP${NC}     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[6]${NC} ${BOLD}${C_AUTHOR}Cek & Perbarui Tools (Auto Update)${NC}              ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}      ${C_MUTED}↳ Perbarui ke fitur & perbaikan bug terbaru${NC}     ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${BOLD}${C_NUM}[7]${NC} ${BOLD}${C_RED}Keluar Program${NC}                                 ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_line "${BOLD}${C_TEXT}📌 Apa yang ingin Anda buat?${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[1]${NC} ${BOLD}${C_PURPLE}Merakit Audio Seamless Durasi Panjang${NC}"
+    draw_line "     ${C_MUTED}↳ Penggabungan audio ASMR mulus (1 - 10 Jam)${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[2]${NC} ${BOLD}${C_BLUE}Mengompres Video Massal${NC}"
+    draw_line "     ${C_MUTED}↳ Kompresi & ubah ukuran banyak file video${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[3]${NC} ${BOLD}${C_CYAN}Merakit Video & Audio ASMR Hujan${NC}"
+    draw_line "     ${C_MUTED}↳ High-Fidelity Rain (Tekstur Air & Partikel)${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[4]${NC} ${BOLD}${C_TITLE}Merakit Video & Audio ASMR Api${NC}"
+    draw_line "     ${C_MUTED}↳ Deep Dark Fire (Bebas Banding & Cahaya)${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[5]${NC} ${BOLD}${C_GREEN}Buat & Siapkan Semua Folder Projek Otomatis${NC}"
+    draw_line "     ${C_MUTED}↳ Otomatis siapkan semua folder di memori HP${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[6]${NC} ${BOLD}${C_AUTHOR}Cek & Perbarui Tools (Auto Update)${NC}"
+    draw_line "     ${C_MUTED}↳ Perbarui ke fitur & perbaikan bug terbaru${NC}"
+    draw_line ""
+    draw_line " ${BOLD}${C_NUM}[7]${NC} ${BOLD}${C_RED}Keluar Program${NC}"
+    draw_bottom
+
     echo ""
-    echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-    echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}💬 LAYANAN BANTUAN & APRESIASI MAS ARIF${NC}              ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Saran, Kendala & Feedback:${NC}                         ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}    ${BOLD}${C_GREEN}📱 WhatsApp Mas Arif : 0851-7321-5732${NC}              ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}                                                      ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Traktir Kopi Mas Arif:${NC}                             ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}│${NC}    ${BOLD}${C_TITLE}☕ DANA Mas Arif     : 0851-7321-5732${NC}              ${C_BORDER}│${NC}"
-    echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}"
+    draw_top
+    draw_center "${BOLD}${C_TITLE}💬 LAYANAN BANTUAN & APRESIASI MAS ARIF${NC}"
+    draw_sep
+    draw_line " ${C_MUTED}• Saran, Kendala & Feedback:${NC}"
+    draw_line "   ${BOLD}${C_GREEN}📱 WhatsApp Mas Arif : 0851-7321-5732${NC}"
+    draw_line ""
+    draw_line " ${C_MUTED}• Traktir Kopi Mas Arif:${NC}"
+    draw_line "   ${BOLD}${C_TITLE}☕ DANA Mas Arif     : 0851-7321-5732${NC}"
+    draw_bottom
+
     echo ""
     echo -ne " ${BOLD}${C_TITLE}❯ Masukkan Pilihan Menu [1-7]:${NC} "
     read main_choice
@@ -458,13 +502,14 @@ while true; do
             ;;
         7)
             clear
-            echo -e "${C_BORDER}╭──────────────────────────────────────────────────────╮${NC}"
-            echo -e "${C_BORDER}│${NC} ${BOLD}${C_AUTHOR}       Terima kasih telah memakai Tools Mas Arif!      ${NC} ${C_BORDER}│${NC}"
-            echo -e "${C_BORDER}│${NC} ${BOLD}${C_TITLE}       Semangat bikin konten ASMR Hujan & Api! 🌧️🔥     ${NC} ${C_BORDER}│${NC}"
-            echo -e "${C_BORDER}├──────────────────────────────────────────────────────┤${NC}"
-            echo -e "${C_BORDER}│${NC}  ${C_MUTED}• WhatsApp Mas Arif :${NC} ${C_GREEN}0851-7321-5732${NC}                  ${C_BORDER}│${NC}"
-            echo -e "${C_BORDER}│${NC}  ${C_MUTED}• Traktir DANA     :${NC} ${C_TITLE}0851-7321-5732${NC}                  ${C_BORDER}│${NC}"
-            echo -e "${C_BORDER}╰──────────────────────────────────────────────────────╯${NC}\n"
+            draw_top
+            draw_center "${BOLD}${C_AUTHOR}Terima kasih telah memakai Tools Mas Arif!${NC}"
+            draw_center "${BOLD}${C_TITLE}Semangat bikin konten ASMR Hujan & Api! 🌧️🔥${NC}"
+            draw_sep
+            draw_line " • WhatsApp Mas Arif : ${C_GREEN}0851-7321-5732${NC}"
+            draw_line " • Traktir DANA     : ${C_TITLE}0851-7321-5732${NC}"
+            draw_bottom
+            echo ""
             exit 0
             ;;
         *)
